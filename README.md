@@ -261,7 +261,48 @@ From the terminal you are logged into IBM Cloud CLI on run the following command
 	NAME           STATUS   ROLES    AGE   VERSION
 	10.76.68.155   Ready    <none>   8d    v1.15.8+IKS
 	```
-	
+
+### Create a Container Registry
+
+In Kubernetes every application is running in a container. In this workshop we are using Docker as our container implementation, but Kubernetes supports other container types. Kubernetes needs a container registy to pull from that contains the container images we will be telling it to run (more on this in a moment).
+
+IBM Cloud provides a container registry service, we will use it to store the Docker images we will be building in this workshop. Let's configure the container registry now: 
+
+1. Run the following command to ensure the `container-registry` plugin has been installed successsfully: 
+
+   ```
+   ibmcloud cr info
+   ```
+
+   You should get output that looks like this:
+
+   ```
+   Container Registry                us.icr.io
+   Container Registry API endpoint   https://us.icr.io/api
+   IBM Cloud API endpoint            https://cloud.ibm.com
+   IBM Cloud account details         <account details>
+   IBM Cloud organization details    <organization details>
+   ```
+
+   **Note:** If you had previously installed the container registry and you have container registry URLs that include the word "bluemix," learn how to [update your API endpoints](https://cloud.ibm.com/docs/services/Registry?topic=registry-registry_overview#registry_regions_local).
+
+
+1. Create a namespace for your container registry, the name doesn't matter, but use something unique and memborable as we will be using that value later. 
+
+   To create a namespace run the following command:
+
+   ```
+   ibmcloud cr namespace-add [your namespace]
+   ```
+
+   You should get the following response:
+
+   ```
+   Adding namespace '[your namespace]'...
+
+   Successfully added namespace '[your namespace]'
+   ```
+
 ### Deploy Artifactory
 
 During the course of this workshop we will be building several artifacts; Maven POMs and shared libraries, that will be consumed by other projects. We will also be using IBM Cloud to handle the building and deployment of the applications we will be writing in this workshop. So that the shared artifacts are available as they are being built by IBM Cloud we will deploy an instance of Artifactory that will be running on our Kubernetes cluster.
