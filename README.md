@@ -397,8 +397,10 @@ Maven can be a powerful tool within an organization for providing guidance and g
 
 We will need to do a few steps so that when the pipeline builds are projects, they deploy to the artifactory instance we setup during the workshop setup section. 
 
-1. From the pipeline page 
-2. 
+1. From the pipeline config page click "more tools"
+	![](./images/artifactory-toolchain-config1.png)
+2. Update the "url_to_your_artifactory" with the IP and port number copied earlier
+	![](./images/artifactory-toolchain-config2.png)
 
 ### Dependency Management
 
