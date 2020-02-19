@@ -426,17 +426,6 @@ Organizations often have a preferred list of libraries for handling the function
 				<artifactId>starter-messaging</artifactId>
 				<version>${my-org.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-sleuth</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 ```
@@ -1013,13 +1002,15 @@ To connect to services our Spring Boot application will need connection informat
 5. In the query box copy and execute the following: 
 
 	```sql
-	create sequence storms_id_generator start with 10 increment by 1 no maxvalue no cycle cache 24;
-	
-	create table storms (id int8 not null, end_date varchar(255), end_location varchar(255), intensity int4 not null, start_date varchar(255), start_location varchar(255), type varchar(255), primary key (id));
-	
-	insert into storms (id, start_date, end_date, start_location, end_location, type, intensity) values (storms_id_generator.NEXTVAL, '10-10-2018', '10-13-2018', 'Denver, Colorado', 'Kansas City, Missouri', 'Thunderstorm', 2);
-	
-	insert into storms (id, start_date, end_date, start_location, end_location, type, intensity) values (storms_id_generator.NEXTVAL, '01-15-2019', '01-17-2019', 'Atlantic Ocean', 'New York City, New York', 'Blizzard', 4);
+	create sequence produce_id_generator start with 10 increment by 1 no maxvalue no cycle cache 24;
+
+	create table PRODUCE (id int8 not null, name varchar(255), subname varchar(255), quantity int4 not null, primary key (id));
+
+	INSERT INTO PRODUCE (id, name, sub_name, quantity) VALUES (1, 'Apple', 'Granny Smith', 100);
+	INSERT INTO PRODUCE (id, name, sub_name, quantity) VALUES (2, 'Apple', 'Gala', 50);
+	INSERT INTO PRODUCE (id, name, sub_name, quantity) VALUES (3, 'Corn', 'Sweet', 1000);
+	INSERT INTO PRODUCE (id, name, sub_name, quantity) VALUES (4, 'Pineapple', '', 300);
+	INSERT INTO PRODUCE (id, name, sub_name, quantity) VALUES (5, 'Potato', 'Red', 500);
 	```
 
 ### Configuring the Application
@@ -1028,14 +1019,16 @@ To connect to services our Spring Boot application will need connection informat
 
 	```
 	spring.datasource.url=${jdbcurl}
-spring.datasource.username=${username}
-spring.datasource.password=${password}
+	spring.datasource.username=${username}
+	spring.datasource.password=${password}
 	spring.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver
 	spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.DB2Dialect
 	spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 	#^^^prevents a warning exception from being thrown. See: https://github.com/spring-projects/spring-boot/issues/12007
 	spring.jpa.open-in-view=false
 	#^^^suppresses warning exception related to OSIV https://vladmihalcea.com/the-open-session-in-view-anti-pattern/
+	
+	
 	```
 
 2. Update the deployment.yml file with the following under `containers`
