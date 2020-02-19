@@ -401,6 +401,8 @@ We will need to do a few steps so that when the pipeline builds are projects, th
 	![](./images/artifactory-toolchain-config1.png)
 2. Update the "url_to_your_artifactory" with the IP and port number copied earlier
 	![](./images/artifactory-toolchain-config2.png)
+	
+3. Click create
 
 ### Dependency Management
 
@@ -538,13 +540,11 @@ In this section we will create three custom starters that we will use later when
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring.boot.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>${spring.boot.version}</version>
 			<optional>true</optional>
 		</dependency>
 ```
